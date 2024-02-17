@@ -13,10 +13,13 @@ public class Main {
         System.out.println("Enter your search query:");
         String query = scanner.nextLine();
 
-        System.out.println("Enter number of images:");
+        System.out.println("Enter number of images: (minimum 3)");
         int numberOfImages = scanner.nextInt();
+        if (numberOfImages<3)
+            return;
         scanner.close();
 
+        //int numberOfImages = 10;
 
         try {
             String urlString = "https://pixabay.com/api/?key=" + apiKey + "&q=" + URLEncoder.encode(query, "UTF-8") + "&per_page=" + numberOfImages;
@@ -40,7 +43,7 @@ public class Main {
             for (int i = 0; i < hits.length(); i++) {
                 JSONObject image = hits.getJSONObject(i);
                 String imageUrl = image.getString("webformatURL");
-                saveImage(imageUrl, documentsFolder.getAbsolutePath() + "/ " + query + i + ".jpg");
+                saveImage(imageUrl, documentsFolder.getAbsolutePath() + "/ " + query+" "+ i + ".jpg");
             }
 
             System.out.println("Images downloaded successfully.");
